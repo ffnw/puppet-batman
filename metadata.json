@@ -1,0 +1,15 @@
+{
+  "name": "ffnw-batman",
+  "version": "0.1.0",
+  "author": "Simon Kurka",
+  "summary": "Installs and manages B.A.T.M.A.N. Advanced.",
+  "license": "GPLv2",
+  "source": "https://github.com/ffnw/puppet-batman.git",
+  "project_page": "https://github.com/ffnw/puppet-batman",
+  "issues_url": "https://github.com/ffnw/puppet-batman/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ],
+  "data_provider": null
+}
+
