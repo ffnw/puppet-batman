@@ -1,4 +1,5 @@
 define batman::interface (
+  String                                  $interface             = "bat-${title}",
   Array[String]                           $interfaces            = [],
   Optional[Integer]                       $orig_interval         = undef,
   Optional[Boolean]                       $ap_isolation          = undef,
@@ -72,9 +73,10 @@ define batman::interface (
     $pre_up + [ "/usr/sbin/batctl -m \$IFACE isolation_mark ${isolation_mark}" ]
   }
 
-  network::inet6::manual ( $title:
-    interface => $title,
+  network::inet6::manual ( $interface:
+    interface => $interface,
     pre_up    => $pre_up,
   )
 
 }
+
