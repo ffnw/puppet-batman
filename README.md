@@ -19,19 +19,19 @@ Installs and manages B.A.T.M.A.N. Advanced.
 ### Beginning with batman
 
 ```puppet
-batman::interface ( 'bat0':
+batman::interface { 'bat0':
   interface => [ 'eth0' ],
-)
+}
 ```
 
 ## Usage
 
 ```puppet
-batman::interface ( 'bat0':
+batman::interface { 'bat0':
   interface => [ 'eth0' ],
   gw_mode   => 'server',
   bandwidth => '1000mbit/1000mbit',
-)
+}
 ```
 
 ## Reference
