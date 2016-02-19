@@ -8,4 +8,6 @@ class batman (
   class { 'batman::install': } ->
   class { 'batman::config': }
 
+  create_resources('batman::interface', hiera('batman::interface', {}))
+
 }
