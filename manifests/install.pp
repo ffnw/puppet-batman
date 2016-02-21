@@ -12,7 +12,7 @@ class batman::install inherits batman {
     },
   }
 
-  package { 
+  package {
     'batman-adv-dkms':
       ensure => 'installed';
     'batctl':
