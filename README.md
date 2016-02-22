@@ -53,6 +53,8 @@ batman::interface { 'bat0':
   * $bandwidth (optional)
   * $routing\_algo (optional)
   * $isolation\_mark (optional)
+  * $ip (optional)
+  * $ip6 (optional, default [])
 
 ## Limitations
 
