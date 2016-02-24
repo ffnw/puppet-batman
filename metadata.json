@@ -9,6 +9,7 @@
   "issues_url": "https://github.com/ffnw/puppet-batman/issues",
   "dependencies": [
     {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"},
+    {"name":"puppetlabs-apt","version_requirement":">= 2.2.1"},
     {"name":"ffnw-network","version_requirement":">= 0.1.0"}
   ],
   "data_provider": null
