@@ -2,11 +2,8 @@ class batman (
   
 ) inherits batman::params {
 
-  contain '::batman::install'
-  contain '::batman::config'
-
-  class { 'batman::install': } ->
-  class { 'batman::config': }
+  require batman::install
+  require batman::config
 
   create_resources('batman::interface', hiera('batman::interface', {}))
 
