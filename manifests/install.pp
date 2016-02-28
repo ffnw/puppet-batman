@@ -7,7 +7,7 @@ class batman::install inherits batman {
     release  => 'jessie',
     repos    => 'main',
     key      => {
-      'id'     => '8B25EEE8C7A14712',
+      'id'     => 'BC8D3582BAB747C41B543B418B25EEE8C7A14712',
       'server' => 'pgpkeys.mit.edu',
     },
   }
