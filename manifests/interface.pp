@@ -21,8 +21,8 @@ define batman::interface (
   Array[String]                           $ip6                   = [],
 ) {
 
-  require batman
-  require batman::params
+  include batman
+  include batman::params
 
   $_interfaces = []
   $interfaces.each | $value | {
