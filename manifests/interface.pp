@@ -24,56 +24,96 @@ define batman::interface (
   require batman
   require batman::params
 
-  $pre_up = []
-
+  $_interfaces = []
   $interfaces.each | $value | {
-    $pre_up = $pre_up + [ "/usr/sbin/batctl -m \$IFACE if add ${value}" ]
+    $_interfaces = $_interfaces + [ "/usr/sbin/batctl -m \$IFACE if add ${value}" ]
   }
+
   if $orig_interval != undef {
-    $pre_up = $pre_up + [ "/usr/sbin/batctl -m \$IFACE orig_interval ${orig_interval}" ]
+    $_orig_interval = [ "/usr/sbin/batctl -m \$IFACE orig_interval ${orig_interval}" ]
+  } else {
+    $_orig_interval = []
   }
+
   if $ap_isolation != undef {
-    $pre_up = $pre_up + [ "/usr/sbin/batctl -m \$IFACE ap_isolation ${ap_isolation}" ]
+    $_ap_isolation = [ "/usr/sbin/batctl -m \$IFACE ap_isolation ${ap_isolation}" ]
+  } else {
+    $_ap_isolation = []
   }
+
   if $bridge_loop_avoidance != undef {
-    $pre_up = $pre_up + [ "/usr/sbin/batctl -m \$IFACE bridge_loop_avoidance ${bridge_loop_avoidance}" ]
+    $_bridge_loop_avoidance = [ "/usr/sbin/batctl -m \$IFACE bridge_loop_avoidance ${bridge_loop_avoidance}" ]
+  } else {
+    $_bridge_loop_avoidance = []
   }
+
   if $distributed_arp_table != undef {
-    $pre_up = $pre_up + [ "/usr/sbin/batctl -m \$IFACE distributed_arp_table ${distributed_arp_table}" ]
+    $_distributed_arp_table = [ "/usr/sbin/batctl -m \$IFACE distributed_arp_table ${distributed_arp_table}" ]
+  } else {
+    $_distributed_arp_table = []
   }
+
   if $aggregation != undef {
-    $pre_up = $pre_up + [ "/usr/sbin/batctl -m \$IFACE aggregation ${aggregation}" ]
+    $_aggregation = [ "/usr/sbin/batctl -m \$IFACE aggregation ${aggregation}" ]
+  } else {
+    $_aggregation = []
   }
+
   if $bonding != undef {
-    $pre_up = $pre_up + [ "/usr/sbin/batctl -m \$IFACE bonding ${bonding}" ]
+    $_bonding = [ "/usr/sbin/batctl -m \$IFACE bonding ${bonding}" ]
+  } else {
+    $_bonding = []
   }
+
   if $fragmentation != undef {
-    $pre_up = $pre_up + [ "/usr/sbin/batctl -m \$IFACE fragmentation ${fragmentation}" ]
+    $_fragmentation = [ "/usr/sbin/batctl -m \$IFACE fragmentation ${fragmentation}" ]
+  } else {
+    $_fragmentation = []
   }
+
   if $network_coding != undef {
-    $pre_up = $pre_up + [ "/usr/sbin/batctl -m \$IFACE network_coding ${network_coding}" ]
+    $_network_coding = [ "/usr/sbin/batctl -m \$IFACE network_coding ${network_coding}" ]
+  } else {
+    $_network_coding = []
   }
+
   if $multicast_mode != undef {
-    $pre_up = $pre_up + [ "/usr/sbin/batctl -m \$IFACE multicast_mode ${multicast_mode}" ]
+    $_multicast_mode = [ "/usr/sbin/batctl -m \$IFACE multicast_mode ${multicast_mode}" ]
+  } else {
+    $_multicast_mode = []
   }
+
   if $loglevel != undef {
-    $pre_up = $pre_up + [ "/usr/sbin/batctl -m \$IFACE loglevel ${loglevel}" ]
+    $_loglevel = [ "/usr/sbin/batctl -m \$IFACE loglevel ${loglevel}" ]
+  } else {
+    $_loglevel = []
   }
+
   if $gw_mode != undef {
     if ($gw_mode == 'client') and ($sel_class != undef) {
-      $pre_up = $pre_up + [ "/usr/sbin/batctl -m \$IFACE gw_mode ${gw_mode} ${sel_class}" ]
+      $_gw_mode = [ "/usr/sbin/batctl -m \$IFACE gw_mode ${gw_mode} ${sel_class}" ]
     } elsif ($gw_mode == 'server') and ($bandwidth != undef) {
-      $pre_up = $pre_up + [ "/usr/sbin/batctl -m \$IFACE gw_mode ${gw_mode} ${bandwidth}" ]
+      $_gw_mode = [ "/usr/sbin/batctl -m \$IFACE gw_mode ${gw_mode} ${bandwidth}" ]
     } else {
-      $pre_up = $pre_up + [ "/usr/sbin/batctl -m \$IFACE gw_mode ${gw_mode}" ]
+      $_gw_mode = [ "/usr/sbin/batctl -m \$IFACE gw_mode ${gw_mode}" ]
     }
+  } else {
+    $_gw_mode = []
   }
+
   if $routing_algo != undef {
-    $pre_up = $pre_up + [ "/usr/sbin/batctl -m \$IFACE routing_algo ${routing_algo}" ]
+    $_routing_algo = [ "/usr/sbin/batctl -m \$IFACE routing_algo ${routing_algo}" ]
+  } else {
+    $_routing_algo = []
   }
+
   if $isolation_mark != undef {
-    $pre_up = $pre_up + [ "/usr/sbin/batctl -m \$IFACE isolation_mark ${isolation_mark}" ]
+    $_isolation_mark = [ "/usr/sbin/batctl -m \$IFACE isolation_mark ${isolation_mark}" ]
+  } else {
+    $_isolation_mark = []
   }
+
+  $pre_up = $_interfaces + $_orig_interval + $_ap_isolation + $_bridge_loop_avoidance + $_distributed_arp_table + $_aggregation + $_bonding + $_fragmentation + $_network_coding + $_multicast_mode + $_loglevel + $_gw_mode + $_routing_algo + $_isolation_mark
 
   if ($ip) {
     network::inet::manual { $interface:
