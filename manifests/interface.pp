@@ -26,8 +26,8 @@ define batman::interface (
 
   $pre_up = []
 
-  $interfaces.each | $interface | {
-    $pre_up = $pre_up + [ "/usr/sbin/batctl -m \$IFACE if add ${interface}" ]
+  $interfaces.each | $_interface | {
+    $pre_up = $pre_up + [ "/usr/sbin/batctl -m \$IFACE if add ${_interface}" ]
   }
   if $orig_interval != undef {
     $pre_up = $pre_up + [ "/usr/sbin/batctl -m \$IFACE orig_interval ${orig_interval}" ]
