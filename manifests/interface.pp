@@ -116,14 +116,14 @@ define batman::interface (
   $pre_up = $_interfaces + $_orig_interval + $_ap_isolation + $_bridge_loop_avoidance + $_distributed_arp_table + $_aggregation + $_bonding + $_fragmentation + $_network_coding + $_multicast_mode + $_loglevel + $_gw_mode + $_routing_algo + $_isolation_mark
 
   if ($kernel_table) {
-    $ip4_rule_up   = [ "/bin/ip -4 rule add pref 31000 iif $IFACE table ${kernel_table}",
-                       "/bin/ip -4 rule add pref 31001 iif $IFACE unreachable", ]
-    $ip6_rule_up   = [ "/bin/ip -6 rule add pref 31000 iif $IFACE table ${kernel_table}",
-                       "/bin/ip -6 rule add pref 31001 iif $IFACE unreachable", ]
-    $ip4_rule_down = [ "/bin/ip -4 rule del pref 31000 iif $IFACE table ${kernel_table}",
-                       "/bin/ip -4 rule del pref 31001 iif $IFACE unreachable", ]
-    $ip6_rule_down = [ "/bin/ip -6 rule del pref 31000 iif $IFACE table ${kernel_table}",
-                       "/bin/ip -6 rule del pref 31001 iif $IFACE unreachable", ]
+    $ip4_rule_up   = [ "/bin/ip -4 rule add pref 31000 iif \$IFACE table ${kernel_table}",
+                       "/bin/ip -4 rule add pref 31001 iif \$IFACE unreachable", ]
+    $ip6_rule_up   = [ "/bin/ip -6 rule add pref 31000 iif \$IFACE table ${kernel_table}",
+                       "/bin/ip -6 rule add pref 31001 iif \$IFACE unreachable", ]
+    $ip4_rule_down = [ "/bin/ip -4 rule del pref 31000 iif \$IFACE table ${kernel_table}",
+                       "/bin/ip -4 rule del pref 31001 iif \$IFACE unreachable", ]
+    $ip6_rule_down = [ "/bin/ip -6 rule del pref 31000 iif \$IFACE table ${kernel_table}",
+                       "/bin/ip -6 rule del pref 31001 iif \$IFACE unreachable", ]
   } else {
     $ip4_rule_up   = []
     $ip6_rule_up   = []
