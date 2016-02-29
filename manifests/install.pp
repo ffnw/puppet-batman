@@ -2,6 +2,10 @@ class batman::install inherits batman {
 
   include apt
 
+  package { 'apt-transport-https':
+    ensure => installed,
+  }
+
   apt::source { 'ffnw':
     location => 'http://repo.ffnw.de',
     release  => 'jessie',
