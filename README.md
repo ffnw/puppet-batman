@@ -36,6 +36,8 @@ batman::interface { 'bat0':
 
 ## Reference
 
+* class batman
+  * $kernel_table (optional)
 * define batman::interface
   * $interfaces (optional, default [])
   * $orig\_interval (optional)
@@ -55,7 +57,6 @@ batman::interface { 'bat0':
   * $isolation\_mark (optional)
   * $ip (optional)
   * $ip6 (optional, default [])
-  * $kernel_table (optional)
 
 ## Limitations
 

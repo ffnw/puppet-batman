@@ -19,7 +19,6 @@ define batman::interface (
   Optional[String]                        $isolation_mark        = undef,
   Optional[String]                        $ip                    = undef,
   Array[String]                           $ip6                   = [],
-  Optional[String]                        $kernel_table          = undef,
 ) {
 
   include batman
