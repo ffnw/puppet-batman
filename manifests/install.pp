@@ -16,8 +16,7 @@ class batman::install inherits batman {
       'id'     => 'BC8D3582BAB747C41B543B418B25EEE8C7A14712',
       'server' => 'pgpkeys.mit.edu',
     },
-  }
-
+  } ->
   package {
     'batman-adv-dkms':
       ensure => 'installed';
