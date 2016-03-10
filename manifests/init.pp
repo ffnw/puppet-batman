@@ -1,6 +1,4 @@
-class batman (
-  Optional[Variant[Integer,String]] $kernel_table = $batman::params::kernel_table
-) inherits batman::params {
+class batman () inherits batman::params {
 
   class { 'batman::install': } ->
   class { 'batman::config': }
