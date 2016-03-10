@@ -25,9 +25,8 @@ define batman::interface (
   include batman
   include batman::params
 
-  $_interfaces = []
-  $interfaces.each | $value | {
-    $_interfaces = $_interfaces + [ "/usr/sbin/batctl -m \$IFACE if add ${value}" ]
+  $_interfaces = $interfaces.map | $value | {
+    "/usr/sbin/batctl -m \$IFACE if add ${value}"
   }
 
   if $orig_interval != undef {
@@ -122,9 +121,8 @@ define batman::interface (
     }
   }
 
-  $post_up = []
-  $ip6.each | $value | {
-    $post_up = $post_up + [ "/bin/ip -6 addr add ${value} dev \$IFACE" ]
+  $post_up = $ip6.map | $value | {
+    "/bin/ip -6 addr add ${value} dev \$IFACE"
   }
 
   network::inet6::manual { $interface:
