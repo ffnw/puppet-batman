@@ -113,7 +113,7 @@ define batman::interface (
     $_isolation_mark = []
   }
 
-  $pre_up = $_interfaces + $_orig_interval + $_ap_isolation + $_bridge_loop_avoidance + $_distributed_arp_table + $_aggregation + $_bonding + $_fragmentation + $_network_coding + $_multicast_mode + $_loglevel + $_gw_mode + $_routing_algo + $_isolation_mark
+  $_batman_options = $_interfaces + $_orig_interval + $_ap_isolation + $_bridge_loop_avoidance + $_distributed_arp_table + $_aggregation + $_bonding + $_fragmentation + $_network_coding + $_multicast_mode + $_loglevel + $_gw_mode + $_routing_algo + $_isolation_mark
 
   if ($ip) {
     network::inet::manual { $interface:
@@ -121,13 +121,12 @@ define batman::interface (
     }
   }
 
-  $post_up = $ip6.map | $value | {
+  $v6_addresses = $ip6.map | $value | {
     "/bin/ip -6 addr add ${value} dev \$IFACE"
   }
 
   network::inet6::manual { $interface:
-    pre_up    => $pre_up,
-    post_up   => $post_up,
+    post_up   => $_batman_options + $v6_addresses,
   }
 
 }
