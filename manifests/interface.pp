@@ -117,6 +117,10 @@ define batman::interface (
 
   if ($ip) {
     network::inet::manual { $interface:
+      pre_up  => [ "/sbin/iptables -A INPUT -i ${interface} -p icmp --icmp-type router-advertisement -j DROP",
+                   "/sbin/iptables -A FORWARD -i ${interface} -p icmp --icmp-type router-advertisement -j DROP",
+                   "/sbin/iptables -A INPUT -i ${interface} -dport 67:68 -sport 67:68 -j DROP",
+                   "/sbin/iptables -A FORWARD -i ${interface} -dport 67:68 -sport 67:68 -j DROP" ],
       post_up   => [ "/bin/ip -4 addr add ${ip} dev \$IFACE" ],
     }
   }
@@ -126,7 +130,11 @@ define batman::interface (
   }
 
   network::inet6::manual { $interface:
-    post_up   => $_batman_options + $v6_addresses,
+    pre_up  => [ "/sbin/ip6tables -A INPUT -i ${interface} -p icmpv6 --icmpv6-type router-advertisement -j DROP",
+                 "/sbin/ip6tables -A FORWARD -i ${interface} -p icmpv6 --icmpv6-type router-advertisement -j DROP",
+                 "/sbin/ip6tables -A INPUT -i ${interface} -dport 67:68 -sport 67:68 -j DROP",
+                 "/sbin/ip6tables -A FORWARD -i ${interface} -dport 67:68 -sport 67:68 -j DROP" ],
+    post_up => $_batman_options + $v6_addresses,
   }
 
 }
