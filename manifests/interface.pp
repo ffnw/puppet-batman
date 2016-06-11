@@ -117,15 +117,15 @@ define batman::interface (
 
   if ($ip) {
     network::inet::manual { $interface:
-      pre_up     => [ "/sbin/iptables -A INPUT -i \$IFACE -p icmp --icmp-type router-advertisement -j DROP",
-                      "/sbin/iptables -A FORWARD -i \$IFACE -p icmp --icmp-type router-advertisement -j DROP",
-                      "/sbin/iptables -A INPUT -i \$IFACE -p udp --dport 68 --sport 67 -j DROP",
-                      "/sbin/iptables -A FORWARD -i \$IFACE -p udp --dport 68 --sport 67 -j DROP" ],
+      pre_up     => [ "/sbin/iptables -w -A INPUT -i \$IFACE -p icmp --icmp-type router-advertisement -j DROP",
+                      "/sbin/iptables -w -A FORWARD -i \$IFACE -p icmp --icmp-type router-advertisement -j DROP",
+                      "/sbin/iptables -w -A INPUT -i \$IFACE -p udp --dport 68 --sport 67 -j DROP",
+                      "/sbin/iptables -w -A FORWARD -i \$IFACE -p udp --dport 68 --sport 67 -j DROP" ],
       post_up    => [ "/bin/ip -4 addr add ${ip} dev \$IFACE" ],
-      post_down  => [ "/sbin/iptables -D INPUT -i \$IFACE -p icmp --icmp-type router-advertisement -j DROP",
-                      "/sbin/iptables -D FORWARD -i \$IFACE -p icmp --icmp-type router-advertisement -j DROP",
-                      "/sbin/iptables -D INPUT -i \$IFACE -p udp --dport 68 --sport 67 -j DROP",
-                      "/sbin/iptables -D FORWARD -i \$IFACE -p udp --dport 68 --sport 67 -j DROP" ],
+      post_down  => [ "/sbin/iptables -w -D INPUT -i \$IFACE -p icmp --icmp-type router-advertisement -j DROP",
+                      "/sbin/iptables -w -D FORWARD -i \$IFACE -p icmp --icmp-type router-advertisement -j DROP",
+                      "/sbin/iptables -w -D INPUT -i \$IFACE -p udp --dport 68 --sport 67 -j DROP",
+                      "/sbin/iptables -w -D FORWARD -i \$IFACE -p udp --dport 68 --sport 67 -j DROP" ],
     }
   }
 
@@ -134,15 +134,15 @@ define batman::interface (
   }
 
   network::inet6::manual { $interface:
-    pre_up    => [ "/sbin/ip6tables -A INPUT -i \$IFACE -p icmpv6 --icmpv6-type router-advertisement -j DROP",
-                   "/sbin/ip6tables -A FORWARD -i \$IFACE -p icmpv6 --icmpv6-type router-advertisement -j DROP",
-                   "/sbin/ip6tables -A INPUT -i \$IFACE -p udp --dport 68 --sport 67 -j DROP",
-                   "/sbin/ip6tables -A FORWARD -i \$IFACE -p udp --dport 68 --sport 67 -j DROP" ],
+    pre_up    => [ "/sbin/ip6tables -w -A INPUT -i \$IFACE -p icmpv6 --icmpv6-type router-advertisement -j DROP",
+                   "/sbin/ip6tables -w -A FORWARD -i \$IFACE -p icmpv6 --icmpv6-type router-advertisement -j DROP",
+                   "/sbin/ip6tables -w -A INPUT -i \$IFACE -p udp --dport 68 --sport 67 -j DROP",
+                   "/sbin/ip6tables -w -A FORWARD -i \$IFACE -p udp --dport 68 --sport 67 -j DROP" ],
     post_up   => $_batman_options + $v6_addresses,
-    post_down => [ "/sbin/ip6tables -D INPUT -i \$IFACE -p icmpv6 --icmpv6-type router-advertisement -j DROP",
-                   "/sbin/ip6tables -D FORWARD -i \$IFACE -p icmpv6 --icmpv6-type router-advertisement -j DROP",
-                   "/sbin/ip6tables -D INPUT -i \$IFACE -p udp --dport 68 --sport 67 -j DROP",
-                   "/sbin/ip6tables -D FORWARD -i \$IFACE -p udp --dport 68 --sport 67 -j DROP" ],
+    post_down => [ "/sbin/ip6tables -w -D INPUT -i \$IFACE -p icmpv6 --icmpv6-type router-advertisement -j DROP",
+                   "/sbin/ip6tables -w -D FORWARD -i \$IFACE -p icmpv6 --icmpv6-type router-advertisement -j DROP",
+                   "/sbin/ip6tables -w -D INPUT -i \$IFACE -p udp --dport 68 --sport 67 -j DROP",
+                   "/sbin/ip6tables -w -D FORWARD -i \$IFACE -p udp --dport 68 --sport 67 -j DROP" ],
   }
 
 }
